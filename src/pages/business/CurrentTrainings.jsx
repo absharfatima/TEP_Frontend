@@ -1,28 +1,19 @@
-// CURRENT TRAININGS FETCH
-import React, { useState, useEffect } from 'react';
+// Redux
+// CurrentTrainings.jsx
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { fetchInvoices } from '../../redux/actions/currentTrainingsActions';
+
  
 const CurrentTrainings = () => {
   const { email: businessEmail } = useParams();
-  const [invoices, setInvoices] = useState([]);
+  const dispatch = useDispatch();
+  const invoices = useSelector((state) => state.training.invoices);
  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/businessinvoices/${businessEmail}`);
-        if (!response.ok) {
-          throw new Error(`Error fetching invoices: ${response.statusText}`);
-        }
- 
-        const data = await response.json();
-        setInvoices(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
- 
-    fetchData();
-  }, [businessEmail]);
+    dispatch(fetchInvoices(businessEmail));
+  }, [dispatch, businessEmail]);
  
   return (
     <div className="container mx-auto my-5">
@@ -40,7 +31,7 @@ const CurrentTrainings = () => {
           </tr>
         </thead>
         <tbody>
-          {invoices.map((invoice) => (
+          {invoices && invoices.map((invoice) => (
             <tr key={invoice._id} className="border border-gray-300">
               <td className="border border-gray-300 py-2 px-4">{invoice.companyName}</td>
               <td className="border border-gray-300 py-2 px-4">{invoice.amount}</td>

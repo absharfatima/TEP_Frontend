@@ -67,7 +67,7 @@ const TrainerRegister = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(registerTrainer(formData));
-    // navigate('/sign-in');
+    navigate('/sign-in');
     // Additional logic if needed
   };
 

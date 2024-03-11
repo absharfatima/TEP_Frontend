@@ -27,11 +27,13 @@ const DashboardHome = () => {
  
   // Filter invoices with payment status true
   const filteredInvoices = invoices.filter(invoice => invoice.paymentStatus === true);
- 
+  // Extracting the part of email before @ and making it uppercase
+  const formattedEmail = businessEmail.split('@')[0].toUpperCase();
+
   return (
 <>
 <div className="container mx-auto my-5">
-<h2 className="text-3xl font-semibold mb-4 text-center">Dashboard of {businessEmail}</h2>
+<h2 className="text-3xl font-semibold mb-4 text-center">Dashboard of {formattedEmail}</h2>
 </div>
  
       {/* Main Content */}

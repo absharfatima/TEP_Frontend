@@ -66,7 +66,7 @@ function TrainersFilterPage() {
         />
         <button
           onClick={handleFilter}
-          className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
         >
           Filter
         </button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
- 
+import Swal from "sweetalert2"; // Import SweetAlert
+
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -22,10 +23,10 @@ const customStyles = {
     backgroundColor: "#fff",
   },
 };
- 
+
 function EditCompanyModal({ isOpen, closeModal, companyId, fetchCompanies }) {
   const [companyData, setCompanyData] = useState({});
- 
+
   useEffect(() => {
     if (companyId) {
       setCompanyData(companyId);
@@ -44,7 +45,7 @@ function EditCompanyModal({ isOpen, closeModal, companyId, fetchCompanies }) {
       fetchCompanyDetails();
     }
   }, [companyId, companyData._id]);
- 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCompanyData((prevData) => ({
@@ -52,7 +53,7 @@ function EditCompanyModal({ isOpen, closeModal, companyId, fetchCompanies }) {
       [name]: value,
     }));
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -65,11 +66,17 @@ function EditCompanyModal({ isOpen, closeModal, companyId, fetchCompanies }) {
       });
       fetchCompanies();
       closeModal();
+      // Display success message using SweetAlert
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Company updated successfully!",
+      });
     } catch (error) {
       console.error("Error updating company:", error);
     }
   };
- 
+
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
       <h2 className="text-xl font-bold mb-4">Edit Company</h2>
@@ -86,7 +93,7 @@ function EditCompanyModal({ isOpen, closeModal, companyId, fetchCompanies }) {
             className="mt-1 p-2 w-full border rounded-md"
           />
         </div>
- 
+
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Location:
@@ -137,7 +144,7 @@ function EditCompanyModal({ isOpen, closeModal, companyId, fetchCompanies }) {
         </div>
         <button
           type="submit"
-          className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
         >
           Update
         </button>
@@ -145,6 +152,5 @@ function EditCompanyModal({ isOpen, closeModal, companyId, fetchCompanies }) {
     </Modal>
   );
 }
- 
+
 export default EditCompanyModal;
- 

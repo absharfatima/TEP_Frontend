@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
- 
+import Swal from "sweetalert2"; // Import SweetAlert
+
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -21,17 +22,19 @@ const customStyles = {
     padding: "20px",
   },
 };
- 
+
 function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
   const [trainerData, setTrainerData] = useState({});
- 
+
   useEffect(() => {
     if (trainer) {
       setTrainerData(trainer);
     } else if (trainerData._id) {
       const fetchTrainerDetails = async () => {
         try {
-          const response = await fetch(`http://localhost:3001/admintrainers/${trainerData._id}`);
+          const response = await fetch(
+            `http://localhost:3001/admintrainers/${trainerData._id}`
+          );
           const data = await response.json();
           setTrainerData(data);
         } catch (error) {
@@ -41,7 +44,7 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
       fetchTrainerDetails();
     }
   }, [trainer, trainerData._id]);
- 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTrainerData((prevData) => ({
@@ -49,7 +52,7 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
       [name]: value,
     }));
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -62,11 +65,18 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
       });
       fetchTrainers();
       closeModal();
+      // Show SweetAlert confirmation
+      Swal.fire({
+        icon: "success",
+        title: "Updated Successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
       console.error("Error updating trainer:", error);
     }
   };
- 
+
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
       <h1>Edit Trainer</h1>
@@ -205,7 +215,5 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
     </Modal>
   );
 }
- 
+
 export default EditTrainerModal;
- 
- 

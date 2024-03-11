@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import EditCompanyModal from "./EditCompanyModal";
+import Swal from "sweetalert2"; // Import SweetAlert
 
 function CompaniesDetails() {
   const [companies, setCompanies] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     fetchCompanies();
@@ -34,22 +37,40 @@ function CompaniesDetails() {
   };
 
   const handleDelete = async (companyId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/admincompanies/${companyId}`,
-        {
-          method: "DELETE",
+    // Display confirmation dialog
+    const confirmation = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    // If user confirms deletion, proceed with deletion
+    if (confirmation.isConfirmed) {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/admincompanies/${companyId}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+        fetchCompanies();
+        console.log("Company deleted successfully");
+      } catch (error) {
+        console.error("Error deleting company:", error);
       }
-      fetchCompanies();
-      console.log("Company deleted successfully");
-    } catch (error) {
-      console.error("Error deleting company:", error);
     }
   };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCompanies = companies.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <>
@@ -71,7 +92,7 @@ function CompaniesDetails() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {companies.map((company) => (
+              {currentCompanies.map((company) => (
                 <tr key={company._id} className="bg-white">
                   <td className="py-2 px-3">{company.uniqueId}</td>
                   <td className="py-2 px-3">{company.companyName}</td>
@@ -81,13 +102,13 @@ function CompaniesDetails() {
                   <td className="py-2 px-3">{company.domain}</td>
                   <td className="py-2 px-3">
                     <button
-                      className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded mr-1"
-                      onClick={() => handleEdit(company._id)}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
+                      onClick={() => handleEdit(company)}
                     >
                       Edit
                     </button>
                     <button
-                      className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-2 rounded"
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded"
                       onClick={() => handleDelete(company._id)}
                     >
                       Delete
@@ -98,14 +119,31 @@ function CompaniesDetails() {
             </tbody>
           </table>
         </div>
-        {/* Render the EditCompanyModal component */}
-        <EditCompanyModal
-          isOpen={isModalOpen}
-          closeModal={closeModal}
-          companyId={selectedCompanyId}
-          fetchCompanies={fetchCompanies}
-        />
+        {/* Pagination */}
+        <div className="mt-4 flex justify-end">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={indexOfLastItem >= companies.length}
+          >
+            Next
+          </button>
+        </div>
       </div>
+      {/* Render the EditCompanyModal component */}
+      <EditCompanyModal
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        companyId={selectedCompanyId}
+        fetchCompanies={fetchCompanies}
+      />
     </>
   );
 }

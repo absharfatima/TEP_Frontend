@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 function BusinessRequestModal({ isOpen, onClose, request }) {
   const [email, setEmail] = useState("");
@@ -45,9 +46,14 @@ function BusinessRequestModal({ isOpen, onClose, request }) {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
+      Swal.fire({
+        icon: "success",
+        title: "Request Accepted",
+        text: "Business request has been accepted successfully!",
+      });
       const responseData = await response.json();
       console.log("Purchase order created:", responseData);
+
       onClose();
     } catch (error) {
       console.error("Error creating purchase order:", error);
@@ -60,10 +66,12 @@ function BusinessRequestModal({ isOpen, onClose, request }) {
         isOpen ? "" : "hidden"
       }`}
     >
-      <div className="bg-white p-4 rounded-lg w-96">
-        <h2 className="text-lg font-bold mb-4">Submit Business Request</h2>
+      <div className="bg-white p-8 rounded-lg w-auto shadow-xl">
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          Submit Business Request
+        </h2>
         {/* Display static data from business request */}
-        <div className="mb-4">
+        <div className="mb-4 text-gray-700">
           <p>
             <strong>Batch Name:</strong> {request.batchName}
           </p>
@@ -85,35 +93,35 @@ function BusinessRequestModal({ isOpen, onClose, request }) {
         </div>
         {/* Input fields for Trainer Email and Calculated Budget */}
         <div className="mb-4">
-          <label className="block mb-1">Trainer Email:</label>
+          <label className="block mb-2 text-gray-700">Trainer Email:</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border border-gray-400 px-2 py-1 w-full rounded"
+            className="border border-gray-300 px-3 py-2 w-full rounded shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             placeholder="Enter Trainer Email"
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-1">Calculated Budget:</label>
+          <label className="block mb-2 text-gray-700">Calculated Budget:</label>
           <input
             type="number"
             value={calculatedBudget}
             onChange={(e) => setCalculatedBudget(e.target.value)}
-            className="border border-gray-400 px-2 py-1 w-full rounded"
+            className="border border-gray-300 px-3 py-2 w-full rounded shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             placeholder="Enter Calculated Budget"
           />
         </div>
         {/* Submit and Cancel buttons */}
-        <div className="flex justify-end">
+        <div className="flex justify-end space-x-2">
           <button
-            className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
             onClick={handleSubmit}
           >
             Submit
           </button>
           <button
-            className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded"
             onClick={onClose}
           >
             Cancel

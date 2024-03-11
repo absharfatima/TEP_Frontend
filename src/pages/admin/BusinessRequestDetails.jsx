@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BusinessRequestModal from "./BusinessRequestModal";
 import TrainersFilterPage from "./TrainersFilterPage";
+import Swal from "sweetalert2";
 
 function calculatePricePerDay(request) {
   const startDate = new Date(request.startDate);
@@ -51,20 +52,43 @@ function BusinessRequestsDetails() {
   };
 
   const handleReject = async (businessId) => {
-    try {
-      await fetch(`http://localhost:3001/adminbusinessrequests/${businessId}`, {
-        method: "DELETE",
-      });
+    // Display confirmation dialog using SweetAlert
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are about to reject this business request.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await fetch(
+            `http://localhost:3001/adminbusinessrequests/${businessId}`,
+            {
+              method: "DELETE",
+            }
+          );
 
-      // If the deletion is successful, update the state to remove the deleted record
-      setBusinessRequests((prevBusinessRequests) =>
-        prevBusinessRequests.filter((request) => request._id !== businessId)
-      );
+          // If the deletion is successful, update the state to remove the deleted record
+          setBusinessRequests((prevBusinessRequests) =>
+            prevBusinessRequests.filter((request) => request._id !== businessId)
+          );
 
-      console.log("Business request rejected successfully");
-    } catch (error) {
-      console.error("Error rejecting business request:", error);
-    }
+          console.log("Business request rejected successfully");
+
+          // Display SweetAlert for rejection
+          Swal.fire({
+            icon: "success",
+            title: "Rejected",
+            text: "Business request has been rejected successfully!",
+          });
+        } catch (error) {
+          console.error("Error rejecting business request:", error);
+        }
+      }
+    });
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -100,8 +124,12 @@ function BusinessRequestsDetails() {
                 <tr key={request._id} className="bg-white">
                   <td className="py-2 px-3">{request.batchName}</td>
                   <td className="py-2 px-3">{request.technology}</td>
-                  <td className="py-2 px-3">{request.startDate}</td>
-                  <td className="py-2 px-3">{request.endDate}</td>
+                  <td className="py-2 px-3">
+                    {new Date(request.startDate).toLocaleDateString("en-GB")}{" "}
+                  </td>
+                  <td className="py-2 px-3">
+                    {new Date(request.endDate).toLocaleDateString("en-GB")}{" "}
+                  </td>
                   <td className="py-2 px-3">{request.trainingBudget}</td>
                   <td className="py-2 px-3">{calculatePricePerDay(request)}</td>
                   {/* <td className="py-2 px-3">
@@ -112,13 +140,13 @@ function BusinessRequestsDetails() {
                   <td className="py-2 px-3">{request.company}</td>
                   <td className="py-2 px-3">
                     <button
-                      className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded mr-1"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
                       onClick={() => handleOpenModal(request)}
                     >
-                      Submit
+                      Accept
                     </button>
                     <button
-                      className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded"
                       onClick={() => handleReject(request._id)}
                     >
                       Reject
@@ -133,14 +161,14 @@ function BusinessRequestsDetails() {
         {/* Pagination */}
         <div className="mt-4 flex justify-end">
           <button
-            className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
           >
             Previous
           </button>
           <button
-            className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={indexOfLastItem >= businessRequests.length}
           >

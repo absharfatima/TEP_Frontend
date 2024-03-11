@@ -1,7 +1,6 @@
-// NEW DASHBOARD
- 
+// UPDATED 
 import React, { useState, useEffect } from 'react';
-import { BarChart, Wallet, Trash} from 'lucide-react';
+import { BarChart, Wallet, Trash } from 'lucide-react';
 import BusinessRequestForm from './BusinessRequestForm';
 import DashboardHome from './DashboardHome';
 import MyProfile from './MyProfile';
@@ -10,97 +9,87 @@ import CurrentTrainings from './CurrentTrainings';
 import Invoices from './Invoices';
 import FeedbackForm from './FeedbackForm';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
- 
- 
 function BusinessDashboard() {
   const [email, setEmail] = useState(null);
   const [selectedLink, setSelectedLink] = useState('dashboard');
-  const navigate= useNavigate();
-  const location = useLocation();
-  const [loggedInUserEmail, setLoggedInUserEmail] = useState('');
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const navigate = useNavigate();
 
- 
-
- 
   useEffect(() => {
-    // Parse the email from the URL
     const url = window.location.href;
     const emailStartIndex = url.lastIndexOf('/') + 1;
     const emailEndIndex = url.indexOf('@') + 1;
     const extractedEmail = url.slice(emailStartIndex, emailEndIndex);
     setEmail(extractedEmail + 'gmail.com'); // Append @gmail.com
   }, []);
- 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      setLoggedInUserEmail(decodedToken.email);
-    }
-  }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const emailParam = location.pathname.split('/')[2]; // Extract email from URL path
-        setIsAuthorized(emailParam === loggedInUserEmail);
-        const response = await fetch(`http://localhost:3001/trainers/${emailParam}`);
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    if (loggedInUserEmail) {
-      fetchData();
-    }
-  }, [loggedInUserEmail, location.pathname]);
-
-
+  
 
   const handleDeleteAccount = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/companies/${email}`, {
-        method: 'DELETE',
-      });
- 
-      if (response.ok) {
-        alert('Account deleted successfully');
-        navigate('/sign-in');
+      // Check for unpaid invoices
+      const response = await fetch(`http://localhost:3001/businessinvoices/unpaid/${encodeURIComponent(email)}`);
+      if (!response.ok) {
+        throw new Error(`Error checking unpaid invoices: ${response.statusText}`);
+      }
+  
+      const unpaidInvoices = await response.json();
+  
+      if (unpaidInvoices.length > 0) {
+        alert("You are unable to delete your account due to outstanding unpaid invoices.");
       } else {
-        const data = await response.json();
-        console.error(`Error deleting account: ${data.error}`);
+        // Show confirmation modal
+        setShowDeleteConfirmation(true);
       }
     } catch (error) {
-      console.error('Error deleting account:', error);
+      console.error('Error checking unpaid invoices:', error);
     }
   };
- 
-  // Function to render the component based on the selected tab
+  
+
+  const handleConfirmation = async (confirm) => {
+    setShowDeleteConfirmation(false);
+
+    if (confirm) {
+      try {
+        const response = await fetch(`http://localhost:3001/companies/requestDeletion/${encodeURIComponent(email)}`, {
+          method: 'POST',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          alert(data.message); // Display success message
+          navigate('/sign-in');
+        } else {
+          const data = await response.json();
+          console.error(`Error sending deletion request: ${data.error}`);
+        }
+      } catch (error) {
+        console.error('Error sending deletion request:', error);
+      }
+    }
+  };
+
   const renderComponent = () => {
     switch (selectedLink) {
       case 'dashboard':
-        return isAuthorized? <DashboardHome email={email} />: null;
+        return <DashboardHome email={email} />;
       case 'my-profile':
-        return isAuthorized? <MyProfile email={email} /> : null;
+        return <MyProfile email={email} />;
       case 'trainer-request':
-        return isAuthorized? <BusinessRequestForm email={email} />: null;
+        return <BusinessRequestForm email={email} />;
       case 'current-trainings':
-        return isAuthorized? <CurrentTrainings email={email} /> : null;
+        return <CurrentTrainings email={email} />;
       case 'invoices':
-        return isAuthorized? <Invoices email={email} /> : null;
+        return <Invoices email={email} />;
       case 'feedback':
-        return isAuthorized? <FeedbackForm email={email} /> : null;
+        return <FeedbackForm email={email} />;
       default:
         return null;
     }
   };
- 
+
   return (
     <>
       <BusinessNavbar />
@@ -128,8 +117,6 @@ function BusinessDashboard() {
  
                 <span className="mx-2 text-sm font-medium">My Profile</span>
               </div>
- 
- 
               <div
                 onClick={() => setSelectedLink('trainer-request')}
                 className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${selectedLink === 'trainer-request' ? 'bg-gray-100 text-gray-700' : ''
@@ -151,7 +138,7 @@ function BusinessDashboard() {
   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
 </svg>
  
-                <span className="mx-2 text-sm font-medium">All Trainings</span>
+                <span className="mx-2 text-sm font-medium">Trainings</span>
               </div>
  
               <div
@@ -174,38 +161,59 @@ function BusinessDashboard() {
  
                 <span className="mx-2 text-sm font-medium">Feedback</span>
               </div>
-             
+
               <div
-              onClick={() => setSelectedLink('deleteAccount')}
-              className={`flex transform items-center rounded-lg px-3 py-2 text-red-500 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                selectedLink === 'deleteAccount' ? 'bg-gray-100 text-gray-700' : ''
-              }`}
-            >
-              <Trash className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2  text-sm font-medium cursor-pointer">Delete Account</span>
-            </div>
+                onClick={() => setSelectedLink('deleteAccount')}
+                className={`flex transform items-center rounded-lg px-3 py-2 text-red-500 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
+                  selectedLink === 'deleteAccount' ? 'bg-gray-100 text-gray-700' : ''
+                }`}
+              >
+                <Trash className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium cursor-pointer">Delete Request</span>
+              </div>
             </nav>
           </div>
         </aside>
- 
+
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-        {selectedLink === 'deleteAccount' ? (
-          isAuthorized &&
-          <div>
-            <p>Are you sure you want to delete your account?</p>
-            <button
-              className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleDeleteAccount} >
-              Delete My Account
-            </button>
-          </div>
-        ) : (
-          renderComponent()
-        )}
-      </main>
-    </div>
+          {showDeleteConfirmation && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <div className="bg-white p-8 rounded-md">
+                <p className="mb-4">Are you sure you want to send a request for account deletion?</p>
+                <div className="flex justify-end">
+                  <button
+                    className="mr-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+                    onClick={() => handleConfirmation(true)}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+                    onClick={() => handleConfirmation(false)}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          {selectedLink === 'deleteAccount' ? (
+            <div className="p-8">
+              <p className="mb-4">Confirm account deletion request?</p>
+              <button
+                className="hover:bg-red-500 bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={handleDeleteAccount}
+              >
+                Send Delete Request
+              </button>
+            </div>
+          ) : (
+            renderComponent()
+          )}
+        </main>
+      </div>
     </>
   );
-        }
-       
+}
+
 export default BusinessDashboard;
