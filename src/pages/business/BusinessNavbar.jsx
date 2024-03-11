@@ -19,7 +19,7 @@ const BusinessNavbar = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <p className="text-white text-xl font-bold">
-            Sharath-InfoTech
+            Trainer Engagement Platform
             </p>
 
           </div>

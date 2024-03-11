@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-
+ 
 function TrainersFilterPage() {
   const [filterSkills, setFilterSkills] = useState("");
-  const [filterChargePerDay, setFilterChargePerDay] = useState("");
   const [filteredTrainers, setFilteredTrainers] = useState([]);
-
+ 
   const handleFilter = async () => {
     try {
       const response = await fetch("http://localhost:3001/admintrainers");
@@ -12,34 +11,22 @@ function TrainersFilterPage() {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      let filteredData = data;
-
-      // Filter by skills
-      if (filterSkills) {
-        filteredData = filteredData.filter((trainer) =>
-          trainer.skills.toLowerCase().includes(filterSkills.toLowerCase())
-        );
-      }
-
-      // Filter by charge per day
-      if (filterChargePerDay) {
-        filteredData = filteredData.filter(
-          (trainer) => trainer.chargePerDay <= parseFloat(filterChargePerDay)
-        );
-      }
-
-      // Check if both conditions are true
-      if (filterSkills && filterChargePerDay) {
-        setFilteredTrainers(filteredData);
-      } else {
-        // Reset filtered trainers if one or both conditions are not met
-        setFilteredTrainers([]);
-      }
+ 
+      // Filter trainers based on skills
+      const filteredData = data.filter((trainer) =>
+        Object.entries(trainer.skills).some(
+          ([skill, value]) =>
+            skill.toLowerCase().includes(filterSkills.toLowerCase()) &&
+            value >= 300
+        )
+      );
+ 
+      setFilteredTrainers(filteredData);
     } catch (error) {
       console.error("Error fetching trainers:", error);
     }
   };
-
+ 
   return (
     <div className="container mx-auto px-2 py-4">
       <h2 className="text-2xl font-bold mb-4 text-black">Filter Trainers</h2>
@@ -54,19 +41,9 @@ function TrainersFilterPage() {
           onChange={(e) => setFilterSkills(e.target.value)}
           className="border border-gray-300 px-4 py-2 rounded-md mr-4"
         />
-        <label htmlFor="filterChargePerDay" className="mr-2">
-          Filter by Charge/Day:
-        </label>
-        <input
-          type="text"
-          id="filterChargePerDay"
-          value={filterChargePerDay}
-          onChange={(e) => setFilterChargePerDay(e.target.value)}
-          className="border border-gray-300 px-4 py-2 rounded-md mr-4"
-        />
         <button
           onClick={handleFilter}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
+          className="bg-gray-400 hover:bg-gray-600 text-black font-bold py-1 px-4 rounded"
         >
           Filter
         </button>
@@ -99,5 +76,6 @@ function TrainersFilterPage() {
     </div>
   );
 }
-
+ 
 export default TrainersFilterPage;
+ 

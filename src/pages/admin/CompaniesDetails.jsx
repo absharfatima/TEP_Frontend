@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import EditCompanyModal from "./EditCompanyModal";
 import Swal from "sweetalert2"; // Import SweetAlert
-
+ 
 function CompaniesDetails() {
   const [companies, setCompanies] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const itemsPerPage = 5;
-
+ 
   useEffect(() => {
     fetchCompanies();
   }, []);
-
+ 
   const fetchCompanies = async () => {
     try {
       const response = await fetch("http://localhost:3001/admincompanies");
@@ -25,17 +26,17 @@ function CompaniesDetails() {
       console.error("Error fetching companies:", error);
     }
   };
-
+ 
   const handleEdit = (companyId) => {
     setIsModalOpen(true);
     setSelectedCompanyId(companyId);
   };
-
+ 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedCompanyId(null);
   };
-
+ 
   const handleDelete = async (companyId) => {
     // Display confirmation dialog
     const confirmation = await Swal.fire({
@@ -47,7 +48,7 @@ function CompaniesDetails() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     });
-
+ 
     // If user confirms deletion, proceed with deletion
     if (confirmation.isConfirmed) {
       try {
@@ -67,17 +68,43 @@ function CompaniesDetails() {
       }
     }
   };
-
+ 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentCompanies = companies.slice(indexOfFirstItem, indexOfLastItem);
-
+  const filteredCompanies = companies.filter(
+    (company) =>
+      company.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      company.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      company.phone.includes(searchQuery) ||
+      company.domain.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const currentCompanies = filteredCompanies.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+ 
   return (
     <>
       <div className="container mx-auto px-2 py-4">
         <h2 className="text-2xl font-bold mb-4 text-black">
           Companies Details
         </h2>
+        {/* Search field */}
+        <div className="flex mb-4 items-center">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="border rounded-l py-2 px-3 mr-2"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {/* Filter icon */}
+          {/* <FaFilter
+            className="text-gray-600 cursor-pointer"
+            onClick={() => fetchCompanies()}
+          /> */}
+        </div>
+        {/* Table for displaying companies */}
         <div className="overflow-x-auto">
           <table className="w-full shadow-lg rounded-lg overflow-hidden">
             <thead className="bg-gray-400 text-black">
@@ -147,5 +174,6 @@ function CompaniesDetails() {
     </>
   );
 }
-
+ 
 export default CompaniesDetails;
+ 

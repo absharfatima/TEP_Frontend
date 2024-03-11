@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="flex justify-between">
           <div className="flex items-center">
             <Link to="/" className="text-white text-xl font-bold">
-              Sharath-InfoTech
+              Trainer Engagement Platform
             </Link>
           </div>
           <div className="flex items-center">

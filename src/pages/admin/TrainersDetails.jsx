@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import EditTrainerModal from "./EditTrainerModal";
 import Swal from "sweetalert2"; // Import SweetAlert
-
+ 
 function TrainersDetails() {
   const [trainers, setTrainers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTrainer, setSelectedTrainer] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const itemsPerPage = 5;
-
+ 
   useEffect(() => {
     fetchTrainers();
   }, []);
-
+ 
   const fetchTrainers = async () => {
     try {
       const response = await fetch("http://localhost:3001/admintrainers");
@@ -25,7 +26,7 @@ function TrainersDetails() {
       console.error("Error fetching trainers:", error);
     }
   };
-
+ 
   const handleDelete = async (id, email) => {
     try {
       const result = await Swal.fire({
@@ -47,7 +48,7 @@ function TrainersDetails() {
           Swal.fire("Error", "Trainer has active purchase orders!", "error");
           return;
         }
-
+ 
         await fetch(`http://localhost:3001/admintrainers/${id}`, {
           method: "DELETE",
         });
@@ -59,35 +60,60 @@ function TrainersDetails() {
       console.error("Error deleting trainer:", error);
     }
   };
-
+ 
   const handleEdit = (trainer) => {
     setSelectedTrainer(trainer);
     setIsModalOpen(true);
   };
-
+ 
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+ 
+  const filteredTrainers = trainers.filter((trainer) => {
+    const lowercaseSearchQuery = searchQuery.toLowerCase();
+    return (
+      trainer.name.toLowerCase().includes(lowercaseSearchQuery) ||
+      trainer.email.toLowerCase().includes(lowercaseSearchQuery) ||
+      trainer.contactNumber.includes(searchQuery) ||
+      Object.entries(trainer.skills).some(
+        ([skillName, skillValue]) =>
+          typeof skillValue === "string" &&
+          (skillName.toLowerCase().includes(lowercaseSearchQuery) ||
+            skillValue.toLowerCase().includes(lowercaseSearchQuery))
+      )
+    );
+  });
+ 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentTrainers = trainers.slice(indexOfFirstItem, indexOfLastItem);
-
+  const currentTrainers = filteredTrainers.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+ 
   return (
     <>
       <div className="container mx-auto px-2 py-4">
         <h2 className="text-2xl font-bold mb-4 text-black">Trainers Details</h2>
+        <div className="flex mb-4">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="border border-gray-300 px-4 py-2 rounded-md mr-4"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full shadow-lg rounded-lg overflow-hidden">
             {/* Table Header */}
             <thead className="bg-gray-400 text-black">
               <tr>
-                {/* <th className="py-2 px-3 text-left">Username</th> */}
                 <th className="py-2 px-3 text-left">Name</th>
                 <th className="py-2 px-3 text-left">Email</th>
                 <th className="py-2 px-3 text-left">Contact</th>
                 <th className="py-2 px-3 text-left">Skills</th>
-                <th className="py-2 px-3 text-left">Charge/day</th>
                 <th className="py-2 px-3 text-left">Actions</th>
               </tr>
             </thead>
@@ -95,7 +121,6 @@ function TrainersDetails() {
             <tbody className="divide-y divide-gray-200">
               {currentTrainers.map((trainer) => (
                 <tr key={trainer._id} className="bg-white">
-                  {/* <td className="py-2 px-3">{trainer.username}</td> */}
                   <td className="py-2 px-3">{trainer.name}</td>
                   <td className="py-2 px-3">{trainer.email}</td>
                   <td className="py-2 px-3">{trainer.contactNumber}</td>
@@ -107,7 +132,6 @@ function TrainersDetails() {
                       </div>
                     ))}
                   </td>
-                  <td className="py-2 px-3">{trainer.chargePerDay}</td>
                   <td className="py-2 px-3">
                     <button
                       onClick={() => handleEdit(trainer)}
@@ -139,7 +163,7 @@ function TrainersDetails() {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-7 my-2 rounded mr-4"
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={indexOfLastItem >= trainers.length}
+            disabled={indexOfLastItem >= filteredTrainers.length}
           >
             Next
           </button>
@@ -155,5 +179,6 @@ function TrainersDetails() {
     </>
   );
 }
-
+ 
 export default TrainersDetails;
+ 

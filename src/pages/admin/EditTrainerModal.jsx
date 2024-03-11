@@ -81,7 +81,7 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
       <h1>Edit Trainer</h1>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "15px" }}>
+        {/* <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
             Username:
           </label>
@@ -97,7 +97,7 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
               borderRadius: "5px",
             }}
           />
-        </div>
+        </div> */}
         <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>Name:</label>
           <input
@@ -164,7 +164,7 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
             }}
           />
         </div>
-        <div style={{ marginBottom: "15px" }}>
+        {/* <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
             Address:
           </label>
@@ -180,8 +180,8 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
               borderRadius: "5px",
             }}
           />
-        </div>
-        <div style={{ marginBottom: "15px" }}>
+        </div> */}
+        {/* <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
             Charges/day:
           </label>
@@ -197,7 +197,7 @@ function EditTrainerModal({ isOpen, closeModal, trainer, fetchTrainers }) {
               borderRadius: "5px",
             }}
           />
-        </div>
+        </div> */}
         <button
           type="submit"
           style={{
