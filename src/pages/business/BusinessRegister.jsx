@@ -1,7 +1,7 @@
-// BUSINESS REGISTRY FETCH 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import Swal from "sweetalert2"; 
  
 const BusinessRegister = () => {
   const generateUniqueId = () => {
@@ -73,7 +73,14 @@ const BusinessRegister = () => {
         },
         body: JSON.stringify(formData),
       });
-      alert("Registration successful!");
+      //alert("Registration successful!");
+      // Show SweetAlert login successfully 
+      Swal.fire({
+        icon: "success",
+        title: "Registeration Completed!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/sign-in");
     } catch (error) {
       console.error("Error registering company:", error);

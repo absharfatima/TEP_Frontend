@@ -16,7 +16,7 @@ export const registerTrainer = (formData) => async (dispatch) => {
 
       if (response.ok) {
         dispatch(resetTrainerState());
-        alert("Registered Successfully!!!");
+        // alert("Registered Successfully!!!");
         console.log("Trainer registered successfully");
         // Optionally, you can dispatch other actions or perform additional logic here
       } else {

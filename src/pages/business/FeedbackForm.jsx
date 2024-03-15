@@ -1,135 +1,5 @@
-// import React, { useState } from "react";
-
-// const FeedbackForm = () => {
-//   const [feedbackData, setFeedbackData] = useState({
-//     company_id: "",
-//     trainer_name: "",
-//     trainer_id: "",
-//     stars: "",
-//     feedback_description: "",
-//   });
-
-//   const handleChange = (e) => {
-//     setFeedbackData({
-//       ...feedbackData,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       const response = await fetch("http://localhost:3001/feedback", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(feedbackData),
-//       });
-
-//       if (response.ok) {
-//         // Clear the form fields
-//         setFeedbackData({
-//           company_id: "",
-//           trainer_name: "",
-//           trainer_id: "",
-//           stars: "",
-//           feedback_description: "",
-//         });
-//         alert("Feedback submitted successfully!");
-//       } else {
-//         console.error("Failed to submit feedback");
-//       }
-//     } catch (error) {
-//       console.error("Error:", error);
-//       alert("Error submitting feedback. Please try again.");
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-md">
-//       <h2 className="text-3xl font-semibold mb-6 text-center text-blue-500">Feedback to Trainer</h2>
-//       <div className="mb-4">
-//         <label htmlFor="company_id" className="block text-sm font-medium text-gray-600">
-//           Company Email:
-//         </label>
-//         <input
-//           type="email"
-//           id="company_id"
-//           name="company_id"
-//           value={feedbackData.company_id}
-//           onChange={handleChange}
-//           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-//         />
-//       </div>
-//       <div className="mb-4">
-//         <label htmlFor="trainer_name" className="block text-sm font-medium text-gray-600">
-//           Trainer Name:
-//         </label>
-//         <input
-//           type="text"
-//           id="trainer_name"
-//           name="trainer_name"
-//           value={feedbackData.trainer_name}
-//           onChange={handleChange}
-//           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-//         />
-//       </div>
-//       <div className="mb-4">
-//         <label htmlFor="trainer_id" className="block text-sm font-medium text-gray-600">
-//           Trainer ID:
-//         </label>
-//         <input
-//           type="text"
-//           id="trainer_id"
-//           name="trainer_id"
-//           value={feedbackData.trainer_id}
-//           onChange={handleChange}
-//           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-//         />
-//       </div>
-//       <div className="mb-4">
-//         <label htmlFor="stars" className="block text-sm font-medium text-gray-600">
-//           Rating out of 10:
-//         </label>
-//         <input
-//           type="number"
-//           id="stars"
-//           name="stars"
-//           min="0"
-//           max="10"
-//           value={feedbackData.stars}
-//           onChange={handleChange}
-//           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-//         />
-//       </div>
-//       <div className="mb-4">
-//         <label htmlFor="feedback_description" className="block text-sm font-medium text-gray-600">
-//           Feedback Description:
-//         </label>
-//         <textarea
-//           id="feedback_description"
-//           name="feedback_description"
-//           value={feedbackData.feedback_description}
-//           onChange={handleChange}
-//           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-//         />
-//       </div>
-//       <button
-//         type="submit"
-//         className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-//       >
-//         Submit Feedback
-//       </button>
-//     </form>
-//   );
-// };
-
-// export default FeedbackForm;
-
-// UPDATED 
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
  
 const FeedbackForm = ({ email }) => {
   const [feedbackData, setFeedbackData] = useState({
@@ -188,28 +58,44 @@ const FeedbackForm = ({ email }) => {
           stars: "",
           feedback_description: "",
         });
-        alert("Feedback submitted successfully!");
+
+        // Show SweetAlert confirmation
+       Swal.fire({
+        icon: "success",
+        title: "Feedback Submitted Successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       } else {
         console.error("Failed to submit feedback");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error submitting feedback. Please try again.");
+      //alert("Error submitting feedback. Please try again.");
+      // Show SweetAlert confirmation
+      Swal.fire({
+        icon: "error",
+        title: "Error submitting feedback! Please try again.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
  
+  
+
   return (
-    <form
+    <div className="container mx-auto mt-8">
+    <h1 className="text-3xl font-bold mb-4 ml-5 text-center"> Feedback to Trainer </h1>
+    <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ml-40 mr-40">
+
+    <form className="space-y-4"
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-md"
     >
-      <h2 className="text-3xl font-semibold mb-6 text-center text-blue-500">
-        Feedback to Trainer
-      </h2>
       <div className="mb-4">
         <label
           htmlFor="company_id"
-          className="block text-sm font-medium text-gray-600"
+          className="block text-sm font-bold text-gray-700 mb-1"
         >
           Company Email:
         </label>
@@ -226,7 +112,7 @@ const FeedbackForm = ({ email }) => {
       <div className="mb-4">
         <label
           htmlFor="trainer_name"
-          className="block text-sm font-medium text-gray-600"
+          className="block text-sm font-bold text-gray-700 mb-1"
         >
           Trainer Email:
         </label>
@@ -248,7 +134,7 @@ const FeedbackForm = ({ email }) => {
       <div className="mb-4">
         <label
           htmlFor="stars"
-          className="block text-sm font-medium text-gray-600"
+          className="block text-sm font-bold text-gray-700 mb-1"
         >
           Rating out of 10:
         </label>
@@ -266,7 +152,7 @@ const FeedbackForm = ({ email }) => {
       <div className="mb-4">
         <label
           htmlFor="feedback_description"
-          className="block text-sm font-medium text-gray-600"
+          className="block text-sm font-bold text-gray-700 mb-1"
         >
           Feedback Description:
         </label>
@@ -285,6 +171,8 @@ const FeedbackForm = ({ email }) => {
         Submit Feedback
       </button>
     </form>
+  </div>
+  </div>
   );
 };
  

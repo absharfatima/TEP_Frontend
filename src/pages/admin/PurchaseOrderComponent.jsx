@@ -60,7 +60,15 @@ function PurchaseOrderComponent() {
                 <tr key={purchaseOrder._id} className="bg-white">
                   <td className="py-2 px-3">{purchaseOrder.trainerName}</td>
                   <td className="py-2 px-3">{purchaseOrder.trainerEmail}</td>
-                  <td className="py-2 px-3">{purchaseOrder.skills}</td>
+                  {/* <td className="py-2 px-3">{purchaseOrder.skills}</td> */}
+                  <td className="py-2 px-3">
+                    {Object.entries(purchaseOrder.skills).map(([key, value]) => (
+                      <div key={key}>
+                        <span>{key}: </span>
+                        <span>{value}</span>
+                      </div>
+                    ))}
+                  </td>
                   <td className="py-2 px-3">{purchaseOrder.chargePerDay}</td>
                   <td className="py-2 px-3">{purchaseOrder.companyName}</td>
                   <td className="py-2 px-3">{purchaseOrder.location}</td>

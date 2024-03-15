@@ -1,5 +1,5 @@
-// BUSSINESS REQUEST FORM FETCH
 import React, { useState } from 'react';
+import Swal from "sweetalert2";
  
 const BusinessRequestForm = ({ companyUniqueId }) => {
   const [businessRequest, setBusinessRequest] = useState({
@@ -68,7 +68,15 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
       });
  
       // Optionally, clear the form or take other actions upon successful submission
-      setConfirmation('Data submitted successfully.');
+      //setConfirmation('Data submitted successfully.');
+       // Show SweetAlert confirmation
+       Swal.fire({
+        icon: "success",
+        title: "Request Sent Successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      
       setBusinessRequest({
         batchName: '',
         technology: '',
@@ -86,11 +94,12 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
   };
  
   return (
-<div className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-semibold mb-4">Request Form For Trainers</h2>
+    <div className="container mx-auto mt-8">
+    <h1 className="text-3xl font-bold mb-4 ml-5 text-center">Request Form For Trainers</h1>
+    <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ml-40 mr-40">
       <form className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">Batch Name:</label>
+          <label className="block text-sm font-bold text-gray-700 mb-1">Batch Name:</label>
           <input
             type="text"
             name="batchName"
@@ -101,7 +110,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
         </div>
  
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">Technology:</label>
+          <label className="block text-sm font-bold text-gray-700 mb-1">Technology:</label>
           <input
             type="text"
             name="technology"
@@ -112,7 +121,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
         </div>
  
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">Number of Trainees:</label>
+          <label className="block text-sm font-bold text-gray-700 mb-1">Number of Trainees:</label>
           <input
             type="number"
             name="numberOfTrainees"
@@ -123,7 +132,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
         </div>
  
       <div>
-      <label className="block text-sm font-medium text-gray-600 mb-1">Duration of Training:</label>
+      <label className="block text-sm font-bold text-gray-700 mb-1">Duration of Training:</label>
       <input
         type="number"  
         name="durationOfTraining"
@@ -135,7 +144,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
  
  
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">Start Date:</label>
+          <label className="block text-sm font-bold text-gray-700 mb-1">Start Date:</label>
           <input
             type="date"
             name="startDate"
@@ -146,7 +155,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
         </div>
  
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">End Date:</label>
+          <label className="block text-sm font-bold text-gray-700 mb-1">End Date:</label>
           <input
             type="date"
             name="endDate"
@@ -157,7 +166,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
         </div>
  
         <div>
-          <label className="block text-sm font-medium text-gray-600 mb-1">Budget of Training:</label>
+          <label className="block text-sm font-bold text-gray-700 mb-1">Budget of Training:</label>
           <input
             type="number"
             name="trainingBudget"
@@ -183,6 +192,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
           {confirmation}
         </div>
       )}
+    </div>
     </div>
   );
 };

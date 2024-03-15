@@ -3,57 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, setErrors, resetTrainerState } from '../../redux/reducers/TrainerRegister';
-
 import {registerTrainer} from '../../redux/actions/TrainerRegister'
+import Swal from "sweetalert2"; 
  
 const TrainerRegister = () => {
-  // const [formData, setFormData] = useState({
-  //   // username: "",
-  //   name: "",
-    
-  //   email: "",
-  //   password: "",
-   
-  //   contactNumber: "",
-  //   // skills: "",
-  //   city: "",
-  //   // chargePerDay: "",
-  // });
- 
-  // const [errors, setErrors] = useState({});
- 
-  // const navigate = useNavigate();
- 
-
- 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const validationErrors = validateForm(formData);
-  //     if (Object.keys(validationErrors).length === 0) {
-  //       const response = await fetch("http://localhost:3001/trainers", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(formData),
-  //       });
- 
-  //       if (response.ok) {
-  //         alert("Registered Successfully!!!");
-  //         console.log("Trainer registered successfully");
-  //         navigate("/sign-in"); // Adjust the route as necessary
-  //       } else {
-  //         throw new Error("Failed to register trainer");
-  //       }
-  //     } else {
-  //       setErrors(validationErrors);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error registering trainer:", error);
-  //   }
-  // };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formData = useSelector((state) => state.trainer.formData);
@@ -67,14 +20,17 @@ const TrainerRegister = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(registerTrainer(formData));
+          // Show SweetAlert login successfully 
+          Swal.fire({
+            icon: "success",
+            title: "Registeration Completed!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
     navigate('/sign-in');
-    // Additional logic if needed
   };
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
+  
  
   const validateForm = (data) => {
     const errors = {};

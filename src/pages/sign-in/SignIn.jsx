@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-//import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import Swal from "sweetalert2"; 
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -9,40 +9,6 @@ const SignIn = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-
-  //   try {
-  //     const response = await axios.post("http://localhost:3001/login", {
-  //       email,
-  //       password,
-  //     });
-
-  //     const { role, token, } = response.data; // Destructure to get the role and token
-
-  //     // Store the token for later use in requests
-  //     localStorage.setItem("token", token);
-  //     // alert(token)
-  //     // alert(email)
-
-  //     // Redirect user based on role
-  //     if (role === "trainer") {
-  //       alert('Login Successfully!')
-  //       navigate(`/trainer-dashboard/${email}`);
-  //     } else if (role === "company") {
-  //       navigate(`/business-dashboard/${email}`);
-  //     } else if (role === "admin") {
-  //       navigate("/admin-dashboard");
-  //     }
-  //   } catch (error) {
-  //     setErrorMsg("Invalid email or password");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,11 +34,34 @@ const SignIn = () => {
  
         // Redirect user based on role
         if (role === "trainer") {
-          alert('Login Successfully!')
+          //alert('Login Successfully!')
+          // Show SweetAlert login successfully 
+          Swal.fire({
+            icon: "success",
+            title: "Login Successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           navigate(`/trainer-dashboard/${email}`);
+
         } else if (role === "company") {
+          // Show SweetAlert login successfully 
+          Swal.fire({
+            icon: "success",
+            title: "Login Successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           navigate(`/business-dashboard/${email}`);
+
         } else if (role === "admin") {
+          // Show SweetAlert login successfully 
+          Swal.fire({
+            icon: "success",
+            title: "Login Successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           navigate("/admin-dashboard");
         }
       } else {
@@ -85,7 +74,6 @@ const SignIn = () => {
     }
   };
 
-  // Your existing JSX code remains unchanged
 
   return (
     <>
@@ -150,15 +138,6 @@ const SignIn = () => {
             </div>
           )}
 
-          {/* <p className="text-sm text-center text-gray-600">
-            Don't have an account?{" "}
-            <Link
-              to="/signup"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Sign up
-            </Link>
-          </p> */}
         </form>
       </div>
     </div>

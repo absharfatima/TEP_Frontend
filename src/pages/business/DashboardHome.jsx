@@ -33,7 +33,7 @@ const DashboardHome = () => {
   return (
 <>
 <div className="container mx-auto my-5">
-<h2 className="text-3xl font-semibold mb-4 text-center">Dashboard of {formattedEmail}</h2>
+<h2 className="text-3xl font-semibold mb-4 text-center">Welcome, {formattedEmail} !</h2>
 </div>
  
       {/* Main Content */}

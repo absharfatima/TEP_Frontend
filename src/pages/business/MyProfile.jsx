@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import swal from "sweetalert";
+import Swal from "sweetalert2";
  
 const MyProfile = ({ email }) => {
   const [userData, setUserData] = useState({});
@@ -39,8 +39,13 @@ const MyProfile = ({ email }) => {
         },
         body: JSON.stringify(userData),
       });
- 
-      swal("Done!", "Successfully Updated!", "success");
+            // Show SweetAlert confirmation
+            Swal.fire({
+              icon: "success",
+              title: "Updated Successfully!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
  
       if (response.ok) {
         setIsEditing(false);
@@ -61,8 +66,8 @@ const MyProfile = ({ email }) => {
  
   return (
     <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-semibold mb-4">My Profile</h1>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 className="text-3xl font-bold mb-4 ml-5 text-center">My Profile</h1>
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ml-40 mr-40">
         {Object.entries(userData).map(([key, value]) => {
           if (excludedFields.includes(key)) {
             return null; // Exclude the field from rendering
@@ -129,3 +134,4 @@ const MyProfile = ({ email }) => {
 };
  
 export default MyProfile;
+
