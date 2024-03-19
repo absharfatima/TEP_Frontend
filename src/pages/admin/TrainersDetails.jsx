@@ -99,7 +99,7 @@ function TrainersDetails() {
         <div className="flex mb-4">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search by Name, Contact Number"
             className="border border-gray-300 px-4 py-2 rounded-md mr-4"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

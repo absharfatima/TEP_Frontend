@@ -16,8 +16,7 @@ function TrainersFilterPage() {
       const filteredData = data.filter((trainer) =>
         Object.entries(trainer.skills).some(
           ([skill, value]) =>
-            skill.toLowerCase().includes(filterSkills.toLowerCase()) &&
-            value >= 300
+            skill.toLowerCase().includes(filterSkills.toLowerCase())
         )
       );
  
