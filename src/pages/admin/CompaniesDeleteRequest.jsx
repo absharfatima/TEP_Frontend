@@ -27,7 +27,7 @@ const CompaniesDeleteRequest = () => {
           confirmButtonText: "Yes, delete it!",
         });
         if (result.isConfirmed) {
-          fetch(`http://localhost:3001/admindeleterequest/${companyId}`, {
+          fetch(`http://localhost:3001/admindeletecompanies/${companyId}`, {
             method: 'DELETE'
           })
             .then(() => {

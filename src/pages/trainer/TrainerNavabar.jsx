@@ -64,3 +64,5 @@ const TrainerNavbar = () => {
 };
 
 export default TrainerNavbar;
+
+

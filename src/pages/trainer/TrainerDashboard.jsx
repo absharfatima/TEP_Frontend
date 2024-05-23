@@ -18,7 +18,7 @@ function TrainerDashboard() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [requestDeletion, setRequestDeletion] = useState(false);
-
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
 
   useEffect(() => {
@@ -55,77 +55,60 @@ function TrainerDashboard() {
       fetchData();
     }
   }, [loggedInUserEmail, location.pathname]);
-  // const handleDeleteAccount = async () => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3001/trainer/${email}`, {
-  //       method: 'DELETE',
-  //     });
 
-  //     if (response.ok) {
-  //       // Redirect or handle deletion success as needed
-  //       alert('Account deleted successfully');
-  //       navigate('/sign-in')
-  //     } else {
-  //       console.error('Error deleting account');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error deleting account:', error);
-  //   }
-  // };
-  const handleSendDeleteRequest = async () => {
-    // Check if requestDeletion is already true
-    if (requestDeletion) {
-      alert('You have already requested deletion.');
-      return;
-    }
- 
-    // Check if there are ongoing or upcoming trainings
-    const hasOngoingOrUpcomingTrainings = await checkTrainings();
-    if (hasOngoingOrUpcomingTrainings) {
-      alert('Cannot delete the account! Current or upcoming trainings are going on.');
-      return;
-    }
- 
-    setShowConfirmation(true);
-  };
- 
-  const checkTrainings = async () => {
-    try {
-      const response = await fetch(`http://localhost:3001/trainer/checkTrainings/${encodeURIComponent(email)}`);
-      if (response.ok) {
-        const data = await response.json();
-        return data.hasOngoingOrUpcomingTrainings;
-      } else {
-        console.error('Error checking trainings');
-        return true; // Assume error occurred, prevent deletion
-      }
-    } catch (error) {
-      console.error('Error checking trainings:', error);
-      return true; // Assume error occurred, prevent deletion
-    }
-  };
- 
+
   const handleConfirmation = async (confirm) => {
-    setShowConfirmation(false);
+    setShowDeleteConfirmation(false);
+  
     if (confirm) {
       try {
         const response = await fetch(`http://localhost:3001/trainer/requestDeletion/${encodeURIComponent(email)}`, {
           method: 'POST',
         });
-        if (response.ok) {
-          alert('Request for deletion sent to admin');
-          setRequestDeletion(true);
-          // navigate('/sign-in');
+  
+        const contentType = response.headers.get('content-type');
+        if (response.ok && contentType && contentType.includes('application/json')) {
+          const data = await response.json();
+          alert(data.message); // Display success message
+          navigate('/sign-in');
         } else {
-          console.error('Error sending deletion request');
+          if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            console.error(`Error sending deletion request: ${data.error}`);
+          } else {
+            const errorMessage = await response.text();
+            console.error(`Error sending deletion request: ${errorMessage}`);
+          }
+          alert('Failed to send deletion request. Please try again later.');
         }
       } catch (error) {
         console.error('Error sending deletion request:', error);
+        alert('An unexpected error occurred. Please try again later.');
       }
     }
   };
-
-
+  
+  const handleDeleteAccount = async () => {
+    try {
+      // Check for ongoing and upcoming trainings
+      const response = await fetch(`http://localhost:3001/trainer/checkTrainings/${encodeURIComponent(email)}`);
+      if (!response.ok) {
+        throw new Error(`Error checking trainings: ${response.statusText}`);
+      }
+  
+      const hasOngoingOrUpcomingTrainings = await response.json();
+  
+      if (hasOngoingOrUpcomingTrainings.length > 0) {
+        alert("You are unable to delete your account due to ongoing and upcoming trainings.");
+      } else {
+        // Show confirmation modal
+        setShowDeleteConfirmation(true);
+      }
+    } catch (error) {
+      console.error('Error checking trainings:', error);
+    }
+  };
+  
 
   // Function to render the component based on the selected tab
   const renderComponent = () => {
@@ -143,21 +126,7 @@ function TrainerDashboard() {
     }
   };
 
-  // const renderComponent = () => {
-  //   switch (selectedLink) {
-  //     case 'dashboard':
-  //       return isAuthorized ? <DashboardHome email={email} setSelectedLink= {setSelectedLink} /> : ()=>{alert("Unathorized");
-  //     navigate('/sign-in')
-  //     };
-  //     case 'my-trainings':
-  //       return isAuthorized ? <MyTrainings email={loggedInUserEmail} /> : null;
-  //     case 'my-po':
-  //       return isAuthorized ? <PODetails email={loggedInUserEmail} /> : null;
-  //     default:
-  //       return null;
-  //   }
-  // };
-
+  
   return (
     <>
     <TrainerNavbar />
@@ -212,39 +181,54 @@ function TrainerDashboard() {
             </div>
 
             <div
-              onClick={handleSendDeleteRequest}
-              className={`flex transform items-center rounded-lg px-3 py-2 text-red-500 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`}
-            >
-              <Trash className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2  text-sm font-medium cursor-pointer">Send Delete Request</span>
-            </div>
-          </nav>
-        </div>
-      </aside>
-      <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-        {showConfirmation ? (
-          <div className="absolute top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-4 rounded-md">
-              <p>Do you want to send a request for deletion?</p>
-              <div className="mt-4 flex justify-end">
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => handleConfirmation(true)}
-                >
-                  Yes
-                </button>
-                <button
-                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => handleConfirmation(false)}
-                >
-                  No
-                </button>
+                onClick={() => setSelectedLink('deleteAccount')}
+                className={`flex transform items-center rounded-lg px-3 py-2 text-red-500 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
+                  selectedLink === 'deleteAccount' ? 'bg-gray-100 text-gray-700' : ''
+                }`}
+              >
+                <Trash className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium cursor-pointer">Delete Request</span>
+              </div>
+            </nav>
+          </div>
+        </aside>
+
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+          {showDeleteConfirmation && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <div className="bg-white p-8 rounded-md">
+                <p className="mb-4">Are you sure you want to send a request for account deletion?</p>
+                <div className="flex justify-end">
+                  <button
+                    className="mr-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+                    onClick={() => handleConfirmation(true)}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+                    onClick={() => handleConfirmation(false)}
+                  >
+                    No
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ) : null}
-        {renderComponent()}
-      </main>
+          )}
+          {selectedLink === 'deleteAccount' ? (
+            <div className="p-8">
+              <p className="mb-4">Confirm account deletion request?</p>
+              <button
+                className="hover:bg-red-500 bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={handleDeleteAccount}
+              >
+                Send Delete Request
+              </button>
+            </div>
+          ) : (
+            renderComponent()
+          )}
+        </main>
     </div>
   </>
   );

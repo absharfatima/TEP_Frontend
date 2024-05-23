@@ -26,6 +26,38 @@ function BusinessDashboard() {
 
   
 
+  const handleConfirmation = async (confirm) => {
+    setShowDeleteConfirmation(false);
+  
+    if (confirm) {
+      try {
+        const response = await fetch(`http://localhost:3001/companies/requestDeletion/${encodeURIComponent(email)}`, {
+          method: 'POST',
+        });
+  
+        const contentType = response.headers.get('content-type');
+        if (response.ok && contentType && contentType.includes('application/json')) {
+          const data = await response.json();
+          alert(data.message); // Display success message
+          navigate('/sign-in');
+        } else {
+          if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            console.error(`Error sending deletion request: ${data.error}`);
+          } else {
+            const errorMessage = await response.text();
+            console.error(`Error sending deletion request: ${errorMessage}`);
+          }
+          alert('Failed to send deletion request. Please try again later.');
+        }
+      } catch (error) {
+        console.error('Error sending deletion request:', error);
+        alert('An unexpected error occurred. Please try again later.');
+      }
+    }
+  };
+
+
   const handleDeleteAccount = async () => {
     try {
       // Check for unpaid invoices
@@ -47,29 +79,6 @@ function BusinessDashboard() {
     }
   };
   
-
-  const handleConfirmation = async (confirm) => {
-    setShowDeleteConfirmation(false);
-
-    if (confirm) {
-      try {
-        const response = await fetch(`http://localhost:3001/companies/requestDeletion/${encodeURIComponent(email)}`, {
-          method: 'POST',
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          alert(data.message); // Display success message
-          navigate('/sign-in');
-        } else {
-          const data = await response.json();
-          console.error(`Error sending deletion request: ${data.error}`);
-        }
-      } catch (error) {
-        console.error('Error sending deletion request:', error);
-      }
-    }
-  };
 
   const renderComponent = () => {
     switch (selectedLink) {

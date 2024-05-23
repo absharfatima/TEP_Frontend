@@ -34,7 +34,6 @@ const SignIn = () => {
  
         // Redirect user based on role
         if (role === "trainer") {
-          //alert('Login Successfully!')
           // Show SweetAlert login successfully 
           Swal.fire({
             icon: "success",
@@ -65,8 +64,14 @@ const SignIn = () => {
           navigate("/admin-dashboard");
         }
       } else {
+        const errorData = await response.json(); // Parse error message from response
+        if (response.status === 403 && errorData.message === "This account has requested deletion and cannot be accessed.") {
+          setErrorMsg("This account has requested deletion and cannot be accessed.");
+        } 
+      else {
         throw new Error("Invalid email or password");
       }
+    }
     } catch (error) {
       setErrorMsg("Invalid email or password");
     } finally {

@@ -5,7 +5,7 @@ const TrainerDeleteRequest = () => {
   const [trainers, setTrainers] = useState([]);
  
   useEffect(() => {
-    fetch('http://localhost:3001/admindeletetrainers')
+    fetch('http://localhost:3001/admintrainerdeleterequest')
       .then(response => response.json())
       .then(data => {
         setTrainers(data);
@@ -49,22 +49,22 @@ const TrainerDeleteRequest = () => {
         <table className="w-full shadow-lg rounded-lg overflow-hidden">
           <thead className="bg-gray-400 text-black">
             <tr>
-              <th className="py-2 px-3 text-left">Username</th>
+              {/* <th className="py-2 px-3 text-left">Username</th> */}
               <th className="py-2 px-3 text-left">Name</th>
               <th className="py-2 px-3 text-left">Email</th>
               <th className="py-2 px-3 text-left">Contact Number</th>
-              <th className="py-2 px-3 text-left">Skills</th>
+              {/* <th className="py-2 px-3 text-left">Skills</th> */}
               <th className="py-2 px-3 text-left">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
             {trainers.map(trainer => (
               <tr key={trainer._id} className="bg-white">
-                <td className="py-2 px-3">{trainer.username}</td>
+                {/* <td className="py-2 px-3">{trainer.username}</td> */}
                 <td className="py-2 px-3">{trainer.name}</td>
                 <td className="py-2 px-3">{trainer.email}</td>
                 <td className="py-2 px-3">{trainer.contactNumber}</td>
-                <td className="py-2 px-3">{trainer.skills}</td>
+                {/*<td className="py-2 px-3">{trainer.skills}</td> */}
                 <td className="py-2 px-3">
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded"
