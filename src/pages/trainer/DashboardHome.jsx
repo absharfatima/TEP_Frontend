@@ -39,10 +39,10 @@ const DashboardHome = ({ email, setSelectedLink }) => {
   return (
     <div>
       <div className="flex flex-wrap">
-        <div className="w-full md:w-[300px] rounded-md border shadow-md ml-[10%] mt-10 bg-sky-50">
+        <div className="w-full md:w-[300px] rounded-md border shadow-md ml-[10%] mt-10 bg-gray-50">
           <div className="p-4">
             <h1 className="text-lg font-semibold">TOTAL PURCHASE ORDERS</h1>
-            <p className="mt-3 text-pink-900 text-center text-7xl font-bold">{count}</p>
+            <p className="mt-3 text-pink-800 text-center text-7xl font-bold">{count}</p>
             <button
               type="button"
               className="mt-4 ml-[60%] font-semibold text-black hover:bg-gray-300"
@@ -52,10 +52,10 @@ const DashboardHome = ({ email, setSelectedLink }) => {
             </button>
           </div>
         </div>
-        <div className="w-full md:w-[300px] rounded-md border shadow-md ml-[15%] mt-10 bg-sky-50">
+        <div className="w-full md:w-[300px] rounded-md border shadow-md ml-[15%] mt-10 bg-gray-50">
           <div className="p-4">
             <h1 className="text-lg font-semibold">TOTAL TRAININGS</h1>
-            <p className="mt-3 text-pink-900 text-center text-7xl font-bold">{totalTrainings}</p>
+            <p className="mt-3 text-pink-800 text-center text-7xl font-bold">{totalTrainings}</p>
             <button
               type="button"
               className="mt-4 ml-[60%] font-semibold text-black hover:bg-gray-300"
@@ -65,7 +65,7 @@ const DashboardHome = ({ email, setSelectedLink }) => {
             </button>
           </div>
         </div>
-        <div className="w-[900px]  rounded-md border shadow-md ml-5 mt-10">
+        <div className="w-[900px]  rounded-md border shadow-md ml-5 mt-10 bg-gray-50">
           <div className="p-4">
             <h1 className="text-lg font-semibold">CURRENT TRAININGS</h1>
             {currentTrainings.length === 0 ? (

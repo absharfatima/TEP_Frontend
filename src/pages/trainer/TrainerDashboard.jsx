@@ -16,8 +16,8 @@ function TrainerDashboard() {
   const [selectedLink, setSelectedLink] = useState('dashboard');
   const navigate = useNavigate();
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [requestDeletion, setRequestDeletion] = useState(false);
+  // const [showConfirmation, setShowConfirmation] = useState(false);
+  // const [requestDeletion, setRequestDeletion] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
 
