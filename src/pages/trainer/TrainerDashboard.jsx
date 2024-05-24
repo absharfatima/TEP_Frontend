@@ -126,41 +126,41 @@ function TrainerDashboard() {
     }
   };
 
-  
+
   return (
     <>
     <TrainerNavbar />
-    <div className="flex h-screen">
+      <div className="flex h-screen">
       <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-black px-5 py-8">
-        {/* Your existing JSX for navigation links */}
+         {/* Your existing JSX for navigation links  */}
         <div className="mt-6 flex flex-1 flex-col justify-between">
           <nav className="-mx-3 space-y-6">
-            {/* Navigation links */}
+             {/* Navigation links  */}
             <div
               onClick={() => setSelectedLink('dashboard')}
-              className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${selectedLink === 'dashboard' ? 'bg-gray-100 text-gray-700' : ''
+              className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'dashboard' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
             >
 
-              <BarChart className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2 text-sm font-medium">Dashboard</span>
-            </div>
+            <BarChart className="h-5 w-5" aria-hidden="true" />
+               <span className="mx-2 text-sm font-medium">Dashboard</span>
+          </div>
 
             <div
-              onClick={() => setSelectedLink('my-profile')}
-              className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${selectedLink === 'my-profile' ? 'bg-gray-100 text-gray-700' : ''
-                }`}
+               onClick={() => setSelectedLink('my-profile')}
+               className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'my-profile' ? 'bg-gray-100 text-gray-700' : ''
+                 }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
-              </svg>
-              <span className="mx-2 text-sm font-medium">My Profile</span>
-            </div>
+               </svg>
+               <span className="mx-2 text-sm font-medium">My Profile</span>
+             </div>
 
 
             <div
               onClick={() => setSelectedLink('my-trainings')}
-              className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${selectedLink === 'my-trainings' ? 'bg-gray-100 text-gray-700' : ''
+              className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'my-trainings' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -171,7 +171,7 @@ function TrainerDashboard() {
 
             <div
               onClick={() => setSelectedLink('po-details')}
-              className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${selectedLink === 'po-details' ? 'bg-gray-100 text-gray-700' : ''
+              className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'po-details' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -182,7 +182,7 @@ function TrainerDashboard() {
 
             <div
                 onClick={() => setSelectedLink('deleteAccount')}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-red-500 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
+                className={`flex transform items-center rounded-lg px-3 py-2 text-red-500 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${
                   selectedLink === 'deleteAccount' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
               >
@@ -191,9 +191,9 @@ function TrainerDashboard() {
               </div>
             </nav>
           </div>
-        </aside>
+        </aside> 
 
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200"> 
           {showDeleteConfirmation && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
               <div className="bg-white p-8 rounded-md">
@@ -228,12 +228,10 @@ function TrainerDashboard() {
           ) : (
             renderComponent()
           )}
-        </main>
-    </div>
-  </>
-  );
+        </main> 
+    </div> 
+  </>  
+  ); 
 }
 
 export default TrainerDashboard;
-
-
