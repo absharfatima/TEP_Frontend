@@ -82,7 +82,22 @@ const PODetails = ({ email }) => {
  
   return (
     <div className="container mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-5 ml-[12%]">Purchase Orders</h1>
+      <div className="flex justify-between items-center mb-5 ml-[8%] mr-[8%]">
+        <p className="text-2xl font-bold">
+          Purchase Orders
+        </p>
+        {/* Pagination */}
+        <div className="flex items-center space-x-2">
+          <button onClick={prevPage} disabled={currentPage === 1} className="bg-blue-500 text-white font-bold py-2 px-2 rounded">
+            &lt;
+          </button>
+          <span className="flex items-center">{`${currentPage} of ${totalPages}`}</span>
+          <button onClick={nextPage} disabled={currentPage === totalPages} className="bg-blue-500 text-white font-bold py-2 px-2 rounded">
+            &gt;
+          </button>
+        </div>
+      </div>
+  
       {loading && <div className="text-center">Loading...</div>}
       {error && <div className="text-red-500">{error}</div>}
       {!loading && !error && (
@@ -93,7 +108,7 @@ const PODetails = ({ email }) => {
               <div key={order._id} className="w-full md:w-[700px] border shadow-md ml-[12%] p-4 rounded-md mb-4 bg-gray-50">
                 <div>Business ID: {order.businessRequestId}</div>
                 <div>Trainer Email: {order.trainerEmail}</div>
-                <div>Amount: {order.amount}</div>
+                <div>Amount: Rs.{order.amount} /-</div>
                 <div>Status: {order.status ? 'Accepted' : 'Pending'}</div>
                 <div>Start Date: {new Date(order.startDate).toLocaleDateString()}</div>
                 <div>End Date: {new Date(order.endDate).toLocaleDateString()}</div>
@@ -119,21 +134,12 @@ const PODetails = ({ email }) => {
                 </div>
               </div>
             ))}
-            {/* Pagination */}
-            <div className="absolute top-0 right-0 mt-4 flex items-center">
-              <button onClick={prevPage} disabled={currentPage === 1} className="bg-blue-500 text-white font-bold py-2 px-4 rounded mr-2">
-                &lt;
-              </button>
-              <span>{`${currentPage} of ${totalPages}`}</span>
-              <button onClick={nextPage} disabled={currentPage === totalPages} className="bg-blue-500 text-white font-bold py-2 px-4 rounded ml-2">
-                &gt;
-              </button>
-            </div>
           </div>
         </div>
       )}
     </div>
   );
+  
 };
  
 export default PODetails;

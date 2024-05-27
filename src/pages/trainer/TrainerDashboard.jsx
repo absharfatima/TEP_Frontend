@@ -16,8 +16,6 @@ function TrainerDashboard() {
   const [selectedLink, setSelectedLink] = useState('dashboard');
   const navigate = useNavigate();
   const [isAuthorized, setIsAuthorized] = useState(false);
-  // const [showConfirmation, setShowConfirmation] = useState(false);
-  // const [requestDeletion, setRequestDeletion] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
 
@@ -132,19 +130,17 @@ function TrainerDashboard() {
     <TrainerNavbar />
       <div className="flex h-screen">
       <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-black px-5 py-8">
-         {/* Your existing JSX for navigation links  */}
         <div className="mt-6 flex flex-1 flex-col justify-between">
           <nav className="-mx-3 space-y-6">
-             {/* Navigation links  */}
             <div
               onClick={() => setSelectedLink('dashboard')}
               className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'dashboard' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
             >
 
-            <BarChart className="h-5 w-5" aria-hidden="true" />
+              <BarChart className="h-5 w-5" aria-hidden="true" />
                <span className="mx-2 text-sm font-medium">Dashboard</span>
-          </div>
+            </div>
 
             <div
                onClick={() => setSelectedLink('my-profile')}
@@ -155,7 +151,7 @@ function TrainerDashboard() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
                </svg>
                <span className="mx-2 text-sm font-medium">My Profile</span>
-             </div>
+            </div>
 
 
             <div

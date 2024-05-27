@@ -62,7 +62,7 @@ const MyProfile = ({ email }) => {
   };
  
   // Define the schema fields to exclude from rendering
-  const excludedFields = ['_id', 'password', '__v', 'role', 'uniqueId'];
+  const excludedFields = ['_id', 'password', '__v', 'role', 'uniqueId', 'requestDeletion'];
  
   return (
     <div className="container mx-auto mt-8">
@@ -80,7 +80,7 @@ const MyProfile = ({ email }) => {
               {/* Render input fields based on the type of the value */}
               {key === 'email' || key === 'username' ? (
                 <input
-                  className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                  className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50`}
                   id={key}
                   type="text"
                   value={value}
@@ -89,7 +89,7 @@ const MyProfile = ({ email }) => {
                 />
               ) : typeof value === 'boolean' ? (
                 <select
-                  className={`block appearance-none w-full bg-white border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                  className={`block appearance-none w-full bg-white border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50`}
                   id={key}
                   value={value.toString()} // Convert boolean to string for select option
                   disabled={!isEditing}
@@ -100,7 +100,7 @@ const MyProfile = ({ email }) => {
                 </select>
               ) : (
                 <input
-                  className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                  className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50`}
                   id={key}
                   type={typeof value === 'number' ? 'number' : 'text'} // Set the input type based on the value type
                   value={value}

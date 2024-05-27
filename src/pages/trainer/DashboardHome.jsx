@@ -35,9 +35,16 @@ const DashboardHome = ({ email, setSelectedLink }) => {
   useEffect(() => {
     setEmailId(email);
   }, [email]);
+
+  // Extracting the part of email before @ and making it uppercase
+  const formattedEmail = emailId.split('@')[0].toUpperCase();
  
   return (
     <div>
+      <div className="container mx-auto my-8">
+        <h2 className="text-3xl font-semibold mb-4 text-center">Welcome, {formattedEmail} !</h2>
+      </div>
+
       <div className="flex flex-wrap">
         <div className="w-full md:w-[300px] rounded-md border shadow-md ml-[10%] mt-10 bg-gray-50">
           <div className="p-4">

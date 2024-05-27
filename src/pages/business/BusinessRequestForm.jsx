@@ -105,7 +105,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
             name="batchName"
             value={businessRequest.batchName}
             onChange={handleInputChange}
-            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-blue-50"
           />
         </div>
  
@@ -116,7 +116,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
             name="technology"
             value={businessRequest.technology}
             onChange={handleInputChange}
-            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-blue-50"
           />
         </div>
  
@@ -127,7 +127,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
             name="numberOfTrainees"
             value={businessRequest.numberOfTrainees}
             onChange={handleInputChange}
-            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-blue-50"
           />
         </div>
  
@@ -138,7 +138,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
         name="durationOfTraining"
         value={businessRequest.durationOfTraining}
         onChange={handleInputChange}
-        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-blue-50"
       />
       </div>
  
@@ -150,7 +150,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
             name="startDate"
             value={businessRequest.startDate}
             onChange={handleInputChange}
-            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-blue-50"
           />
         </div>
  
@@ -161,7 +161,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
             name="endDate"
             value={businessRequest.endDate}
             onChange={handleInputChange}
-            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-blue-50"
           />
         </div>
  
@@ -172,7 +172,7 @@ const BusinessRequestForm = ({ companyUniqueId }) => {
             name="trainingBudget"
             value={businessRequest.trainingBudget}
             onChange={handleInputChange}
-            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-blue-50"
           />
         </div>
  

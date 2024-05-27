@@ -16,8 +16,8 @@ const CurrentTrainings = () => {
   }, [dispatch, businessEmail]);
  
   return (
-    <div className="container mx-auto my-5">
-      <h2 className="text-3xl font-bold mb-4 ml-5 text-center">All Training</h2>
+    <div className="container mx-auto my-8">
+      <h2 className="text-3xl font-bold mb-4 ml-5 text-center">All Trainings</h2>
       {/* <table className="min-w-full border border-gray-300"> */}
       <div className="flex justify-center">
 
@@ -26,7 +26,7 @@ const CurrentTrainings = () => {
         <thead className="bg-blue-500 text-white">
           <tr>
             <th className="border border-gray-300 py-2 px-4">Company Name</th>
-            <th className="border border-gray-300 py-2 px-4">Amount</th>
+            <th className="border border-gray-300 py-2 px-4">Amount (Rs.)</th>
             <th className="border border-gray-300 py-2 px-4">Batches</th>
             <th className="border border-gray-300 py-2 px-4">Start Date</th>
             <th className="border border-gray-300 py-2 px-4">End Date</th>
@@ -38,7 +38,7 @@ const CurrentTrainings = () => {
           {invoices && invoices.map((invoice) => (
             <tr key={invoice._id} className="border border-gray-300">
               <td className="border border-gray-300 py-2 px-4">{invoice.companyName}</td>
-              <td className="border border-gray-300 py-2 px-4">{invoice.amount}</td>
+              <td className="border border-gray-300 py-2 px-4">{invoice.amount}/-</td>
               <td className="border border-gray-300 py-2 px-4">{invoice.batches}</td>
               <td className="border border-gray-300 py-2 px-4">
                 {new Date(invoice.startDate).toLocaleDateString()}

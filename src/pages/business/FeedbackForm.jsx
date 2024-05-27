@@ -105,7 +105,7 @@ const FeedbackForm = ({ email }) => {
           name="company_id"
           value={feedbackData.company_id}
           onChange={handleChange}
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 bg-blue-50"
           readOnly
         />
       </div>
@@ -121,7 +121,7 @@ const FeedbackForm = ({ email }) => {
           name="trainer_name"
           value={feedbackData.trainer_name}
           onChange={handleChange}
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 bg-blue-50"
         >
           <option value="">Select Trainer Email</option>
           {trainerEmails.map((trainerEmail, index) => (
@@ -146,7 +146,7 @@ const FeedbackForm = ({ email }) => {
           max="10"
           value={feedbackData.stars}
           onChange={handleChange}
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 bg-blue-50"
         />
       </div>
       <div className="mb-4">
@@ -161,7 +161,7 @@ const FeedbackForm = ({ email }) => {
           name="feedback_description"
           value={feedbackData.feedback_description}
           onChange={handleChange}
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 bg-blue-50"
         />
       </div>
       <button

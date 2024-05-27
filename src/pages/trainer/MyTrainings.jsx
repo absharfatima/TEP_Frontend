@@ -261,7 +261,7 @@ const MyTrainings = ({ email }) => {
             <div key={training._id} className="w-full md:w-[700px] border shadow-md ml-[12%] p-4 rounded-md mb-4 bg-gray-50">
               <div >Business ID: {training.businessRequestId}</div>
               <div>Trainer Email: {training.trainerEmail}</div>
-              <div>Amount: ${training.amount}</div>
+              <div>Amount: Rs. {training.amount}/-</div>
               <div>Status: {training.status ? 'Accepted' : 'Not Accepted'}</div>
               <div>Start Date: {new Date(training.startDate).toLocaleDateString()}</div>
               <div>End Date: {new Date(training.endDate).toLocaleDateString()}</div>

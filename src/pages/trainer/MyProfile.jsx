@@ -86,20 +86,19 @@ const MyProfile = ({ email }) => {
 
   return (
     <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-semibold mb-4 ml-5 text-center">My Profile</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center">My Profile</h1>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ml-40 mr-40">
         {Object.entries(trainerData).map(([key, value]) => {
           if (excludedFields.includes(key)) {
             return null; // Exclude the field from rendering
           }
           return (
-            <div className="mb-4" key={key}>
+            <div className="mb-6" key={key}>
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={key}>
                 {key.charAt(0).toUpperCase() + key.slice(1)} {/* Capitalize the first letter of the key */}
               </label>
-              {/* Render input fields based on the type of the value */}
               <input
-                className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50`}
                 id={key}
                 type="text"
                 value={value}
@@ -110,20 +109,20 @@ const MyProfile = ({ email }) => {
             </div>
           );
         })}
-
+  
         {/* Render skills section */}
-        <div className="mb-4">
+        <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">Skills</label>
           {Object.entries(trainerData.skills || {}).map(([skill, price]) => (
-            <div key={skill} className="flex items-center">
+            <div key={skill} className="flex items-center mb-2">
               <input
-                className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50`}
                 type="text"
                 value={skill} // Render skill name
                 readOnly={true}
               />
               <input
-                className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2`}
+                className={`shadow appearance-none border ${isEditing ? 'border-gray-300' : 'border-transparent'} rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50 ml-2`}
                 type="text"
                 value={price}
                 readOnly={!isEditing}
@@ -142,16 +141,16 @@ const MyProfile = ({ email }) => {
           ))}
           {/* Input fields for adding a new skill */}
           {isEditing && (
-            <div className="flex items-center mt-2">
+            <div className="flex items-center mt-4">
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50"
                 type="text"
                 placeholder="New Skill"
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
               />
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-50 ml-2"
                 type="text"
                 placeholder="Price"
                 value={newSkillPrice}
@@ -166,25 +165,27 @@ const MyProfile = ({ email }) => {
             </div>
           )}
         </div>
-
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          onClick={isEditing ? handleSaveClick : handleEditClick}
-        >
-          {isEditing ? 'Save' : 'Edit'}
-        </button>
-
-        {isEditing && (
+  
+        <div className="flex justify-end mt-6">
           <button
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-            onClick={handleEditClick}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={isEditing ? handleSaveClick : handleEditClick}
           >
-            Cancel
+            {isEditing ? 'Save' : 'Edit'}
           </button>
-        )}
+          {isEditing && (
+            <button
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
+              onClick={handleEditClick}
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
+  
 };
 
 export default MyProfile;
