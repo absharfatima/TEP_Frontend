@@ -48,7 +48,6 @@ function PurchaseOrderComponent() {
                 <th className="py-2 px-3 text-left">Trainer Name</th>
                 <th className="py-2 px-3 text-left">Trainer Email</th>
                 <th className="py-2 px-3 text-left">Skills</th>
-                <th className="py-2 px-3 text-left">Charge Per Day</th>
                 <th className="py-2 px-3 text-left">Company Name</th>
                 <th className="py-2 px-3 text-left">Location</th>
                 <th className="py-2 px-3 text-left">Company Email</th>
@@ -69,7 +68,6 @@ function PurchaseOrderComponent() {
                       </div>
                     ))}
                   </td>
-                  <td className="py-2 px-3">{purchaseOrder.chargePerDay}</td>
                   <td className="py-2 px-3">{purchaseOrder.companyName}</td>
                   <td className="py-2 px-3">{purchaseOrder.location}</td>
                   <td className="py-2 px-3">{purchaseOrder.companyEmail}</td>

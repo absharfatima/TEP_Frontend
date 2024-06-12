@@ -53,10 +53,7 @@ function AdminDashboard() {
             <nav className="-mx-3 space-y-6">
               <div
                 onClick={() => setSelectedLink("dashboard")}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  selectedLink === "dashboard"
-                    ? "bg-gray-100 text-gray-700"
-                    : ""
+                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'dashboard' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
               >
                 <BarChart className="h-5 w-5" aria-hidden="true" />
@@ -65,11 +62,8 @@ function AdminDashboard() {
  
               <div
                 onClick={() => setSelectedLink("trainer-details")}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  selectedLink === "trainer-details"
-                    ? "bg-gray-100 text-gray-700"
-                    : ""
-                }`}
+                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'trainer-details' ? 'bg-gray-100 text-gray-700' : ''
+                }`}    
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -93,11 +87,8 @@ function AdminDashboard() {
  
               <div
                 onClick={() => setSelectedLink("company-details")}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  selectedLink === "company-details"
-                    ? "bg-gray-100 text-gray-700"
-                    : ""
-                }`}
+                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'company-details' ? 'bg-gray-100 text-gray-700' : ''
+                }`}  
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -121,11 +112,8 @@ function AdminDashboard() {
  
               <div
                 onClick={() => setSelectedLink("business-request")}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  selectedLink === "business-request"
-                    ? "bg-gray-100 text-gray-700"
-                    : ""
-                }`}
+                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'business-request' ? 'bg-gray-100 text-gray-700' : ''
+                }`}  
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -149,10 +137,7 @@ function AdminDashboard() {
  
               <div
                 onClick={() => setSelectedLink("purchase-order-component")}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  selectedLink === "purchase-order-component"
-                    ? "bg-gray-100 text-gray-700"
-                    : ""
+                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'purchase-order-component' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
               >
                 <Wallet className="h-5 w-5" aria-hidden="true" />
@@ -160,8 +145,7 @@ function AdminDashboard() {
               </div>
               <div
                 onClick={() => setSelectedLink("invoice")}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  selectedLink === "invoice" ? "bg-gray-100 text-gray-700" : ""
+                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'invoice' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
               >
                 <svg
@@ -183,10 +167,7 @@ function AdminDashboard() {
              
               <div
                 onClick={() => setSelectedLink("deletion-request")}
-                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  selectedLink === "trainer-details"
-                    ? "bg-gray-100 text-gray-700"
-                    : ""
+                className={`flex transform items-center rounded-lg px-3 py-2 text-gray-200 transition-colors duration-300 hover:bg-purple-500 hover:text-white ${selectedLink === 'deletion-request' ? 'bg-gray-100 text-gray-700' : ''
                 }`}
               >
                 <svg

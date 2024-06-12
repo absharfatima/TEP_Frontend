@@ -1,4 +1,3 @@
-// UPDATED 
 import React, { useState, useEffect } from 'react';
 import { BarChart, Wallet, Trash } from 'lucide-react';
 import BusinessRequestForm from './BusinessRequestForm';

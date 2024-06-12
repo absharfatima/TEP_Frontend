@@ -44,8 +44,8 @@ const Home = () => {
 
       <div className="contact bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 text-center">
         <p className="text-lg">Contact Us: 9527218479</p>
-        <p className="text-lg">Email: support@sharathinfotech.com</p>
-        <p className="text-lg">Phone: 20087654</p>
+        <p className="text-lg">Email: support@trainerengagement.com</p>
+        <p className="text-lg">Phone: +91-2008 7654 22</p>
       </div>
     </>
   );

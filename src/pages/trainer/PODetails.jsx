@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
- 
+
 const PODetails = ({ email }) => {
   const [purchaseOrders, setPurchaseOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(2); // Change this value to adjust the number of orders per page
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,10 +23,10 @@ const PODetails = ({ email }) => {
         setLoading(false);
       }
     };
- 
+
     fetchData();
   }, [email]);
- 
+
   const handleAccept = async (id, status) => {
     if (status === true) return; // Do nothing if already accepted
     try {
@@ -49,7 +49,7 @@ const PODetails = ({ email }) => {
       setError('Failed to accept order. Please try again later.');
     }
   };
- 
+
   const handleReject = async id => {
     try {
       const response = await fetch(`http://localhost:3001/purchase-orders/${id}/reject`, {
@@ -69,17 +69,17 @@ const PODetails = ({ email }) => {
       setError('Failed to reject order. Please try again later.');
     }
   };
- 
+
   // Logic for displaying current orders
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const currentOrders = purchaseOrders.slice(indexOfFirstOrder, indexOfLastOrder);
- 
+
   const totalPages = Math.ceil(purchaseOrders.length / ordersPerPage);
- 
+
   const prevPage = () => setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
   const nextPage = () => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
- 
+
   return (
     <div className="container mx-auto mt-10">
       <div className="flex justify-between items-center mb-5 ml-[8%] mr-[8%]">
@@ -106,7 +106,7 @@ const PODetails = ({ email }) => {
           <div className="relative">
             {currentOrders.map(order => (
               <div key={order._id} className="w-full md:w-[700px] border shadow-md ml-[12%] p-4 rounded-md mb-4 bg-gray-50">
-                <div>Business ID: {order.businessRequestId}</div>
+                <div>Company Email: {order.businessRequestId && order.businessRequestId.uniqueId ? order.businessRequestId.uniqueId.email : 'N/A'}</div>
                 <div>Trainer Email: {order.trainerEmail}</div>
                 <div>Amount: Rs.{order.amount} /-</div>
                 <div>Status: {order.status ? 'Accepted' : 'Pending'}</div>
@@ -139,9 +139,8 @@ const PODetails = ({ email }) => {
       )}
     </div>
   );
-  
 };
- 
+
 export default PODetails;
- 
+
  
