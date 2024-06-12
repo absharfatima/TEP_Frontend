@@ -132,54 +132,6 @@ const MyTrainings = ({ email }) => {
   });
  
   const Invoice = ({ invoiceData }) => (
-    // <Document>
-    //   <Page size="A4" style={styles.page}>
-    //     <View style={styles.section}>
-    //       <Text style={styles.header}>Invoice</Text>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Invoice ID:</Text>
-    //         <Text style={styles.value}>{invoiceData._id}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Amount:</Text>
-    //         <Text style={styles.value}>{invoiceData.amount}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Purchase Order Id:</Text>
-    //         <Text style={styles.value}>{invoiceData.poId}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Trainer Id:</Text>
-    //         <Text style={styles.value}>{invoiceData.trainerId}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Business Id:</Text>
-    //         <Text style={styles.value}>{invoiceData.businessId}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Trainer Name:</Text>
-    //         <Text style={styles.value}>{invoiceData.name}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Trainer Email:</Text>
-    //         <Text style={styles.value}>{invoiceData.email}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Contact:</Text>
-    //         <Text style={styles.value}>{invoiceData.contactNumber}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Training Start Date:</Text>
-    //         <Text style={styles.value}>{invoiceData.startDate}</Text>
-    //       </View>
-    //       <View style={styles.section}>
-    //         <Text style={styles.label}>Training End Date:</Text>
-    //         <Text style={styles.value}>{invoiceData.endDate}</Text>
-    //       </View>
-    //     </View>
-    //   </Page>
-    // </Document>
-
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.platformHeader}>
