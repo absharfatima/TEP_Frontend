@@ -37,11 +37,11 @@ const TrainerInvoicesTable = () => {
           invoiceId: invoice._id,
           poId: invoice.poId,
           businessId: invoice.businessId,
-          totalAmount: invoice.amount,
-          batches: "Some batches", // You can modify this as needed
+          batches: invoice.batchName, 
+          technologies: invoice.technology, 
           startDate: invoice.startDate,
           endDate: invoice.endDate,
-          technologies: "Some technologies", // You can modify this as needed
+          totalAmount: invoice.amount,
           paymentStatus: false,
         }),
       });

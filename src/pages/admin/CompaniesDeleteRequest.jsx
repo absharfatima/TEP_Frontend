@@ -52,10 +52,9 @@ const CompaniesDeleteRequest = () => {
           <thead className="bg-gray-400 text-black">
             <tr>
               <th className="py-2 px-3 text-left">Company Name</th>
-              <th className="py-2 px-3 text-left">Location</th>
-              <th className="py-2 px-3 text-left">Phone</th>
               <th className="py-2 px-3 text-left">Email</th>
-              <th className="py-2 px-3 text-left">Domain</th>
+              <th className="py-2 px-3 text-left">Location</th>
+              <th className="py-2 px-3 text-left">Contact Number</th>
               <th className="py-2 px-3 text-left">Action</th>
             </tr>
           </thead>
@@ -63,10 +62,9 @@ const CompaniesDeleteRequest = () => {
             {companies.map(company => (
               <tr key={company._id} className="bg-white">
                 <td className="py-2 px-3">{company.companyName}</td>
+                <td className="py-2 px-3">{company.email}</td>
                 <td className="py-2 px-3">{company.location}</td>
                 <td className="py-2 px-3">{company.phone}</td>
-                <td className="py-2 px-3">{company.email}</td>
-                <td className="py-2 px-3">{company.domain}</td>
                 <td className="py-2 px-3">
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded"

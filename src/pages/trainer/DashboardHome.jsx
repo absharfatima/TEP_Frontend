@@ -82,6 +82,8 @@ const DashboardHome = ({ email, setSelectedLink }) => {
                 <thead>
                   <tr>
                     <th className="px-2 py-2">Company Name</th>
+                    <th className="px-2 py-2">Batch Name</th>
+                    <th className="px-2 py-2">Technology</th>
                     <th className="px-2 py-2">Start Date</th>
                     <th className="px-2 py-2">End Date</th>
                   </tr>
@@ -90,6 +92,9 @@ const DashboardHome = ({ email, setSelectedLink }) => {
                   {currentTrainings.map(training => (
                     <tr key={training._id}>
                       <td className="border px-4 py-2 text-center">{training.company.companyName}</td>
+                      <td className="border px-4 py-2 text-center">{training.batchName}</td>
+                      <td className="border px-4 py-2 text-center">{training.technology}</td>
+
                       <td className="border px-2 py-2 text-center">{new Date(training.startDate).toLocaleDateString()}</td>
                       <td className="border px-2 py-2 text-center">{new Date(training.endDate).toLocaleDateString()}</td>
                     </tr>

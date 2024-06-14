@@ -108,7 +108,9 @@ const PODetails = ({ email }) => {
               <div key={order._id} className="w-full md:w-[700px] border shadow-md ml-[12%] p-4 rounded-md mb-4 bg-gray-50">
                 <div>Company Email: {order.businessRequestId && order.businessRequestId.uniqueId ? order.businessRequestId.uniqueId.email : 'N/A'}</div>
                 <div>Trainer Email: {order.trainerEmail}</div>
-                <div>Amount: Rs.{order.amount} /-</div>
+                <div>Batch Name: {order.batchName}</div>
+                <div>Technology: {order.technology}</div>
+                <div>Amount: Rs. {order.amount} /-</div>
                 <div>Status: {order.status ? 'Accepted' : 'Pending'}</div>
                 <div>Start Date: {new Date(order.startDate).toLocaleDateString()}</div>
                 <div>End Date: {new Date(order.endDate).toLocaleDateString()}</div>

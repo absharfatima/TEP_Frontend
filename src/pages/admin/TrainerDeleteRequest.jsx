@@ -50,8 +50,9 @@ const TrainerDeleteRequest = () => {
           <thead className="bg-gray-400 text-black">
             <tr>
               {/* <th className="py-2 px-3 text-left">Username</th> */}
-              <th className="py-2 px-3 text-left">Name</th>
+              <th className="py-2 px-3 text-left">Trainer Name</th>
               <th className="py-2 px-3 text-left">Email</th>
+              <th className="py-2 px-3 text-left">City</th>
               <th className="py-2 px-3 text-left">Contact Number</th>
               {/* <th className="py-2 px-3 text-left">Skills</th> */}
               <th className="py-2 px-3 text-left">Action</th>
@@ -63,6 +64,7 @@ const TrainerDeleteRequest = () => {
                 {/* <td className="py-2 px-3">{trainer.username}</td> */}
                 <td className="py-2 px-3">{trainer.name}</td>
                 <td className="py-2 px-3">{trainer.email}</td>
+                <td className="py-2 px-3">{trainer.city}</td>
                 <td className="py-2 px-3">{trainer.contactNumber}</td>
                 {/*<td className="py-2 px-3">{trainer.skills}</td> */}
                 <td className="py-2 px-3">

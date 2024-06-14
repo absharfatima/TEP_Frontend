@@ -127,8 +127,9 @@ const Invoices = () => {
                 className="w-full md:w-[700px] border shadow-md ml-[12%] p-4 rounded-md mb-4 bg-gray-50"
               >
                 <div>Company Name: {invoice.companyName}</div>
+                <div>Batch Name: {invoice.batchName}</div>
+                <div>Technology: {invoice.technology}</div>
                 <div>Amount: Rs. {invoice.amount} /-</div>
-                <div>Batch: {invoice.batches}</div>
                 <div>Start Date: {new Date(invoice.startDate).toLocaleDateString()}</div>
                 <div>End Date: {new Date(invoice.endDate).toLocaleDateString()}</div>
                 <div>Payment Status: {invoice.paymentStatus ? "Paid" : "Not Paid"}</div>
